@@ -31,4 +31,11 @@ router.post("/checkouts", async (req, res) => {
   res.json(response);
 });
 
+router.delete("/bookings/:ID", async (req, res) => {
+  const id = req.params.ID;
+  const deletedItem = await Checkout.findByIdAndDelete(id);
+  console.log(deletedItem);
+  res.json(deletedItem);
+});
+
 module.exports = router;
