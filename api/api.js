@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Services = require("../models/services");
 const Checkout = require("../models/checkout");
+const { default: mongoose } = require("mongoose");
 
 //Services
 router.get("/services", async (req, res) => {
@@ -29,6 +30,16 @@ router.post("/checkouts", async (req, res) => {
   const checkOut = new Checkout(checkOutInfo);
   const response = await checkOut.save();
   res.json(response);
+});
+
+router.patch("/bookings/:ID", async (req, res) => {
+  const id = req.params.ID;
+  const updateData = req.body;
+  const update = await Checkout.findByIdAndUpdate(id, updateData, {
+    new: true,
+  });
+  console.log(update);
+  res.json(update);
 });
 
 router.delete("/bookings/:ID", async (req, res) => {

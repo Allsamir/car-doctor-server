@@ -8,6 +8,7 @@ const checkOutSchema = new mongoose.Schema({
   serviceName: String,
   serviceID: String,
   img: String,
+  status: String,
 });
 
 const Checkout = mongoose.model("Checkout", checkOutSchema);
