@@ -10,11 +10,20 @@ router.get("/services", async (req, res) => {
 });
 router.get("/services/:ID", async (req, res) => {
   const id = req.params.ID;
-  const service = await Services.findById(id, "title price service_id");
+  const service = await Services.findById(id, "title price service_id img");
   res.json(service);
 });
 
 // Checkouts
+router.get("/checkouts", async (req, res) => {
+  let qurey = {};
+  if (req.query?.email) {
+    qurey = { email: req.query.email };
+  }
+  const checkouts = await Checkout.find(qurey);
+  res.json(checkouts);
+});
+
 router.post("/checkouts", async (req, res) => {
   const checkOutInfo = req.body;
   const checkOut = new Checkout(checkOutInfo);
