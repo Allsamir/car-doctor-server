@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const api = require("./api/api");
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -12,6 +13,8 @@ mongoose
   .connect(process.env.DATABASE_URI)
   .then(() => console.log("Database connected"))
   .catch((err) => console.error(err));
+
+app.use(api);
 
 app.get("/", (req, res) => {
   res.send("Car doctor server is running");
