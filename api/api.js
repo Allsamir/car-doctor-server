@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Services = require("../models/services");
 const Checkout = require("../models/checkout");
-const { default: mongoose } = require("mongoose");
 
 //Services
 router.get("/services", async (req, res) => {
