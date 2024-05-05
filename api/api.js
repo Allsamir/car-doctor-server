@@ -4,6 +4,7 @@ const router = express.Router();
 const Services = require("../models/services");
 const jwt = require("jsonwebtoken");
 const Checkout = require("../models/checkout");
+const verifyToken = require("../middlewares/verifyToken");
 
 //Services
 router.get("/services", async (req, res) => {
@@ -17,7 +18,7 @@ router.get("/services/:ID", async (req, res) => {
 });
 
 // Checkouts
-router.get("/checkouts", async (req, res) => {
+router.get("/checkouts", verifyToken, async (req, res) => {
   let qurey = {};
   if (req.query?.email) {
     qurey = { email: req.query.email };
