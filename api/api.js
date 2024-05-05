@@ -19,11 +19,13 @@ router.get("/services/:ID", async (req, res) => {
 
 // Checkouts
 router.get("/checkouts", verifyToken, async (req, res) => {
+  if (req.query.email !== req.user.userEmail) {
+    res.status(403).send({ message: "forbidden access" });
+  }
   let qurey = {};
   if (req.query?.email) {
     qurey = { email: req.query.email };
   }
-  console.log(req.cookies.accessToken);
   const checkouts = await Checkout.find(qurey);
   res.json(checkouts);
 });
