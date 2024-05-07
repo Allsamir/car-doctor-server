@@ -69,4 +69,10 @@ router.post("/jwt", async (req, res) => {
     .send({ success: true });
 });
 
+router.post("/logout", async (req, res) => {
+  const user = req.body;
+  console.log("logout user", user);
+  res.clearCookie("accessToken", { maxAge: 0 }).send({ message: true });
+});
+
 module.exports = router;
