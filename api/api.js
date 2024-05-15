@@ -13,7 +13,14 @@ const cookieOptions = {
 
 //Services
 router.get("/services", async (req, res) => {
-  const services = await Services.find({});
+  const { sort, searchIndex } = req.query;
+  const services = await Services.find(
+    { title: { $regex: searchIndex, $options: "i" } },
+    null,
+    {
+      sort: { price: sort === "asc" ? 1 : -1 },
+    },
+  );
   res.json(services);
 });
 router.get("/services/:ID", async (req, res) => {
